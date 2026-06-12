@@ -1,0 +1,296 @@
+{
+    "$__mpe_config_无尽": {
+        "$__mpe_code": {
+            "prefix": "",
+            "lastSyncTime": 1776998315408,
+            "isModifiedExternally": false,
+            "filePath": "/Users/bruno/Code/MaaMFZL/assets/resource/pipeline/无尽.json",
+            "savedViewport": {
+                "x": -305,
+                "y": 197,
+                "zoom": 0.51
+            },
+            "filename": "无尽",
+            "version": "v1.4.2"
+        }
+    },
+    "刷新无尽词条": {
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "refresh_endless_affixes"
+            }
+        },
+        "post_delay": 0,
+        "next": [
+            "开始战斗"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 972,
+                "y": 15
+            }
+        }
+    },
+    "开始刷无尽": {
+        "next": [
+            "战斗tab"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 12,
+                "y": 90
+            }
+        }
+    },
+    "开始战斗": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    1070,
+                    658,
+                    122,
+                    35
+                ]
+            }
+        },
+        "next": [
+            "无尽_战斗"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1292,
+                "y": 118
+            }
+        }
+    },
+    "战斗tab": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "战斗tab.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "无尽深渊tab"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 332,
+                "y": 46
+            }
+        }
+    },
+    "战斗失败 任务结束": {
+        "$__mpe_code": {
+            "position": {
+                "x": 2252,
+                "y": 722
+            }
+        }
+    },
+    "掉落分解提示": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "恭喜您获得.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    602,
+                    420,
+                    79,
+                    33
+                ]
+            }
+        },
+        "next": [
+            "无尽_战斗"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1932,
+                "y": 989
+            }
+        }
+    },
+    "无尽_战斗": {
+        "timeout": -1,
+        "rate_limit": 2000,
+        "next": [
+            "掉落分解提示",
+            "无尽_战斗结束",
+            "无尽_战斗失败",
+            "无法开始战斗"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1612,
+                "y": 407
+            }
+        }
+    },
+    "无尽_战斗失败": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "战斗失败.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    1117,
+                    669,
+                    86,
+                    33
+                ]
+            }
+        },
+        "post_delay": 500,
+        "next": [
+            "战斗失败 任务结束"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1932,
+                "y": 643
+            }
+        }
+    },
+    "无尽_战斗结束": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": {
+                            "param": {
+                                "template": "战斗结束.png",
+                                "threshold": 0.9
+                            },
+                            "type": "TemplateMatch"
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "param": {
+                                "template": "战斗结束_确定.png",
+                                "threshold": 0.9
+                            },
+                            "type": "TemplateMatch"
+                        }
+                    }
+                ],
+                "box_index": 0
+            }
+        },
+        "pre_delay": 500,
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    1109,
+                    669,
+                    108,
+                    35
+                ]
+            }
+        },
+        "next": [
+            "无尽_战斗结束_计数"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1932,
+                "y": 12
+            }
+        }
+    },
+    "无尽深渊tab": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "无尽深渊tab.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "刷新无尽词条"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 652,
+                "y": 54
+            }
+        }
+    },
+    "无法开始战斗": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "无法开始战斗.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    596,
+                    468,
+                    86,
+                    30
+                ]
+            }
+        },
+        "$__mpe_code": {
+            "position": {
+                "x": 1932,
+                "y": 358
+            }
+        }
+    },
+    "无尽_战斗结束_计数": {
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "battle_count_checker",
+                "custom_action_param": {
+                    "target_count": 0
+                }
+            }
+        },
+        "post_delay": 0,
+        "next": [
+            "刷新无尽词条"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2339,
+                "y": 14
+            }
+        }
+    }
+}

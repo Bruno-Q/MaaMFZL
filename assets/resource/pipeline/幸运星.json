@@ -1,0 +1,139 @@
+{
+    "$__mpe_config_幸运星": {
+        "$__mpe_code": {
+            "prefix": "",
+            "savedViewport": {
+                "x": -485,
+                "y": 48,
+                "zoom": 1
+            },
+            "filename": "幸运星",
+            "version": "v1.4.1"
+        }
+    },
+    "幸运星": {
+        "next": [
+            "活动"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 12,
+                "y": 72
+            }
+        }
+    },
+    "活动": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "活动带红点.png"
+                ],
+                "threshold": [
+                    0.9
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "next": [
+            "幸运星tab"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 332,
+                "y": 12
+            }
+        }
+    },
+    "幸运星tab": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "幸运星.png"
+                ],
+                "threshold": [
+                    0.9
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "next": [
+            "检查跳过动画",
+            "开始刷"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 652,
+                "y": 22
+            }
+        }
+    },
+    "检查跳过动画": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "跳过动画未选中.png"
+                ],
+                "threshold": [
+                    0.94
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "next": [
+            "开始刷"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 972,
+                "y": 101
+            }
+        }
+    },
+    "开始刷": {
+        "post_delay": 1,
+        "next": [
+            "刷幸运星"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1292,
+                "y": 163
+            }
+        }
+    },
+    "刷幸运星": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    605,
+                    515,
+                    136,
+                    51
+                ]
+            }
+        },
+        "post_delay": 1,
+        "next": [
+            "开始刷"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 972,
+                "y": 390
+            }
+        }
+    }
+}

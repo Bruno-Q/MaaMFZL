@@ -1,0 +1,878 @@
+{
+    "$__mpe_config_血缘": {
+        "$__mpe_code": {
+            "prefix": "",
+            "lastSyncTime": 1780704519858,
+            "isModifiedExternally": false,
+            "filePath": "/Users/bruno/Code/MaaMFZL/assets/resource/pipeline/血缘.json",
+            "coordinateMode": "absolute-v1",
+            "savedViewport": {
+                "x": -2179,
+                "y": -505,
+                "zoom": 1
+            },
+            "filename": "血缘",
+            "version": "v1.6.1"
+        }
+    },
+    "准备刷血缘": {
+        "next": [
+            "血缘_战斗结束",
+            "识别血缘关卡",
+            "向上滑动"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2849,
+                "y": 776
+            }
+        }
+    },
+    "出现最终boss": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "出现最终boss.png"
+                ]
+            }
+        },
+        "$__mpe_code": {
+            "position": {
+                "x": 12,
+                "y": 12
+            }
+        }
+    },
+    "右侧魂系副本": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    656,
+                    174,
+                    251,
+                    325
+                ],
+                "template": [
+                    "魂系副本.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    434,
+                    190,
+                    124,
+                    62
+                ]
+            }
+        },
+        "next": [
+            "点击可能的赐福关"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 332,
+                "y": 861
+            }
+        }
+    },
+    "向上滑动": {
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    1068,
+                    245,
+                    1,
+                    1
+                ],
+                "end": [
+                    [
+                        1061,
+                        282,
+                        1,
+                        1
+                    ]
+                ],
+                "duration": [
+                    400
+                ]
+            }
+        },
+        "post_delay": 500,
+        "next": [
+            "识别血缘关卡",
+            "向上滑动"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 3254,
+                "y": 942
+            }
+        }
+    },
+    "向上滑动_测试": {
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    1068,
+                    245,
+                    1,
+                    1
+                ],
+                "end": [
+                    [
+                        1061,
+                        282,
+                        1,
+                        1
+                    ]
+                ],
+                "duration": [
+                    400
+                ]
+            }
+        },
+        "post_delay": 500,
+        "next": [
+            "测试OCR"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 812,
+                "y": 12
+            }
+        }
+    },
+    "奶牛关": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "奶牛关.png"
+                ],
+                "threshold": [
+                    0.9
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "奶牛关",
+            "监测一倍速",
+            "监测二倍速",
+            "未检测到倍速"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 332,
+                "y": 554
+            }
+        }
+    },
+    "左侧魂系副本": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    367,
+                    174,
+                    262,
+                    328
+                ],
+                "template": [
+                    "魂系副本.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    696,
+                    187,
+                    163,
+                    75
+                ]
+            }
+        },
+        "next": [
+            "点击可能的赐福关"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 332,
+                "y": 1187
+            }
+        }
+    },
+    "开始刷血缘": {
+        "next": [
+            "血缘tab"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2252,
+                "y": 1095
+            }
+        }
+    },
+    "成功进入战斗": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "成功进入战斗标志.png"
+                ]
+            }
+        },
+        "timeout": -1,
+        "next": [
+            "血缘选择"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 4492,
+                "y": 978
+            }
+        }
+    },
+    "战斗": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "战斗.png"
+                ],
+                "threshold": [
+                    0.9
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "timeout": -1,
+        "next": [
+            "血缘密钥不足",
+            "战斗_等待"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 3852,
+                "y": 675
+            }
+        }
+    },
+    "战斗_等待": {
+        "next": [
+            "血缘密钥不足",
+            "成功进入战斗"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 4172,
+                "y": 800
+            }
+        }
+    },
+    "战斗失败": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": {
+                            "param": {
+                                "template": "战斗失败.png",
+                                "threshold": 0.9
+                            },
+                            "type": "TemplateMatch"
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "param": {
+                                "template": "战斗失败_确定.png",
+                                "threshold": 0.9
+                            },
+                            "type": "TemplateMatch"
+                        }
+                    }
+                ],
+                "box_index": 0
+            }
+        },
+        "pre_delay": 500,
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    1117,
+                    669,
+                    86,
+                    33
+                ]
+            }
+        },
+        "post_delay": 500,
+        "next": [
+            "准备刷血缘"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 6412,
+                "y": 1069
+            }
+        }
+    },
+    "掉落目标装备": {
+        "timeout": -1,
+        "next": [
+            "血缘_战斗结束",
+            "战斗失败"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1932,
+                "y": 752
+            }
+        }
+    },
+    "最终boss": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "最终boss.png"
+                ]
+            }
+        },
+        "next": [
+            "识别血缘装备掉落"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1292,
+                "y": 651
+            }
+        }
+    },
+    "未掉落目标装备": {
+        "next": [
+            "点击暂停"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2892,
+                "y": 610
+            }
+        }
+    },
+    "未检测到倍速": {
+        "next": [
+            "继续战斗"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 652,
+                "y": 1141
+            }
+        }
+    },
+    "测试OCR": {
+        "next": [
+            "识别血缘关卡_测试",
+            "向上滑动_测试"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 492,
+                "y": 130
+            }
+        }
+    },
+    "测试自定义Action": {
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "bloodline_battle",
+                "custom_action_param": {
+                    "battle_loop_sleep_sec": 0.1,
+                    "yolo_expected_labels": [
+                        1
+                    ]
+                }
+            }
+        },
+        "post_delay": 0,
+        "$__mpe_code": {
+            "position": {
+                "x": 252,
+                "y": 12
+            }
+        }
+    },
+    "点击可能的赐福关": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    315,
+                    216,
+                    75,
+                    87
+                ]
+            }
+        },
+        "next": [
+            "继续战斗"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 652,
+                "y": 1328
+            }
+        }
+    },
+    "点击暂停": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "暂停.png"
+                ],
+                "threshold": [
+                    0.9
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_delay": 500,
+        "next": [
+            "退出战斗"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 5452,
+                "y": 915
+            }
+        }
+    },
+    "监测一倍速": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "一倍速.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "继续战斗"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 652,
+                "y": 610
+            }
+        }
+    },
+    "监测二倍速": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "二倍速.png"
+                ]
+            }
+        },
+        "next": [
+            "继续战斗"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 652,
+                "y": 876
+            }
+        }
+    },
+    "等待选择": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "等待选择.png"
+                ]
+            }
+        },
+        "next": [
+            "右侧魂系副本",
+            "左侧魂系副本",
+            "默认点击左边"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 12,
+                "y": 1482
+            }
+        }
+    },
+    "继续战斗": {
+        "timeout": -1,
+        "next": [
+            "最终boss",
+            "等待选择",
+            "战斗失败"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 972,
+                "y": 1195
+            }
+        }
+    },
+    "血缘_战斗结束": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": {
+                            "param": {
+                                "template": "战斗结束.png",
+                                "threshold": 0.9
+                            },
+                            "type": "TemplateMatch"
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "param": {
+                                "template": "战斗结束_确定.png",
+                                "threshold": 0.9
+                            },
+                            "type": "TemplateMatch"
+                        }
+                    }
+                ],
+                "box_index": 0
+            }
+        },
+        "pre_delay": 500,
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    1109,
+                    669,
+                    108,
+                    35
+                ]
+            }
+        },
+        "next": [
+            "血缘_战斗结束_计数"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2252,
+                "y": 675
+            }
+        }
+    },
+    "血缘_战斗结束_计数": {
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "bloodline_count_checker",
+                "custom_action_param": {
+                    "battle_ltarget_count": "0"
+                }
+            }
+        },
+        "post_delay": 0,
+        "next": [
+            "准备刷血缘"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2572,
+                "y": 677
+            }
+        }
+    },
+    "血缘tab": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "血缘.png"
+                ],
+                "threshold": [
+                    0.9
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_delay": 500,
+        "next": [
+            "准备刷血缘"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2572,
+                "y": 1015
+            }
+        }
+    },
+    "血缘密钥不足": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "血缘密钥不足.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    595,
+                    469,
+                    82,
+                    27
+                ]
+            }
+        },
+        "$__mpe_code": {
+            "position": {
+                "x": 4492,
+                "y": 675
+            }
+        }
+    },
+    "血缘选择": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "血缘选择标志.png"
+                ]
+            }
+        },
+        "next": [
+            "奶牛关",
+            "非奶牛关"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 4812,
+                "y": 986
+            }
+        }
+    },
+    "识别血缘关卡": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    868,
+                    236,
+                    230,
+                    241
+                ],
+                "expected": [
+                    "疯狂121"
+                ],
+                "threshold": 0.9
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "战斗"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 3227,
+                "y": 645
+            }
+        }
+    },
+    "识别血缘关卡_测试": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    862,
+                    232,
+                    235,
+                    244
+                ],
+                "expected": [
+                    "疯狂121"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "$__mpe_code": {
+            "position": {
+                "x": 812,
+                "y": 350
+            }
+        }
+    },
+    "识别血缘装备掉落": {
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "bloodline_battle",
+                "custom_action_param": {
+                    "battle_loop_sleep_sec": 0.1,
+                    "yolo_expected_labels": [
+                        1
+                    ]
+                }
+            }
+        },
+        "post_delay": 0,
+        "next": [
+            "掉落目标装备"
+        ],
+        "on_error": [
+            "未掉落目标装备"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1612,
+                "y": 610
+            }
+        }
+    },
+    "退出战斗": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "退出战斗.png"
+                ],
+                "threshold": [
+                    0.9
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_delay": 500,
+        "next": [
+            "退出战斗确认"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 5772,
+                "y": 924
+            }
+        }
+    },
+    "退出战斗确认": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "退出战斗确认.png"
+                ],
+                "threshold": [
+                    0.9
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    511,
+                    472,
+                    77,
+                    26
+                ]
+            }
+        },
+        "post_delay": 2000,
+        "next": [
+            "战斗失败"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 6092,
+                "y": 903
+            }
+        }
+    },
+    "非奶牛关": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    417,
+                    194,
+                    162,
+                    60
+                ]
+            }
+        },
+        "next": [
+            "点击暂停"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 5132,
+                "y": 998
+            }
+        }
+    },
+    "默认点击左边": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    434,
+                    187,
+                    122,
+                    68
+                ]
+            }
+        },
+        "next": [
+            "点击可能的赐福关"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 332,
+                "y": 1513
+            }
+        }
+    }
+}

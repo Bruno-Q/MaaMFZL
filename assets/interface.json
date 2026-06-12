@@ -1,16 +1,11 @@
 {
-    // 本文件主要定义了通用 UI 的行为和显示内容
-    // 可参考文档和示例添加更多您需要的功能
-    // 文档：https://maafw.xyz/docs/3.3-ProjectInterfaceV2
-    // 示例：https://github.com/MaaXYZ/MaaFramework/blob/main/sample/interface.json
     "interface_version": 2,
-    "name": "MaaXXX",
-    "description": "这是一个使用 MaaFramework 创建的新项目。",
-    "contact": "QQ群: 123456789",
+    "name": "MaaMFZL",
+    "description": "这是一个使用 MaaFramework 创建的新项目。魔法之路小助手",
+    "contact": "暂无",
     "license": "MIT",
     "welcome": "首次使用！欢迎使用 MAA!",
-    // 填写项目地址和版本号可实现自动更新功能
-    "github": "https://github.com/MaaXYZ/MaaPracticeBoilerplate",
+    "github": "https://github.com/Bruno-Q/MaaMFZL",
     "version": "1.0.0",
     // Mirror酱为第三方分发服务，新项目默认关闭
     // 若有需要请联系 Mirror酱 开通，直接自行开启是无法使用的
@@ -21,89 +16,146 @@
             "name": "安卓端",
             "type": "Adb",
             "display_short_side": 720 // 默认缩放分辨率的短边长度
-        },
-        {
-            "name": "桌面端",
-            "type": "Win32",
-            "win32": {
-                "class_regex": ".*",
-                "window_regex": "Visual Studio",
-                // 截图及控制方式，请根据项目实际情况修改
-                // 文档: https://maafw.xyz/docs/2.4-ControlMethods
-                "screencap": "PrintWindow", // 截图方式
-                "mouse": "PostMessageWithCursorPos", // 鼠标控制方式
-                "keyboard": "PostMessageWithCursorPos" // 键盘控制方式
-            }
         }
     ],
     "resource": [
         {
-            "name": "官服",
+            "name": "TapTap服",
             "path": [
                 "./resource"
             ]
-        },
-        {
-            "name": "B 服",
-            "path": [
-                "./resource",
-                "./resource_bilibili"
-            ]
         }
     ],
-    // 可选的 agent 示例
-    // "agent": {
-    //     "child_exec": "python",
-    //     "child_args": [
-    //         "./agent/main.py"
-    //     ]
-    // },
+    "agent": {
+        "child_exec": "/Users/bruno/Code/MaaMFZL/.venv/bin/python",
+        "child_args": [
+            //"/Users/bruno/Code/MaaMFZL/agent/debug_wrapper.py"
+            "/Users/bruno/Code/MaaMFZL/agent/main.py"
+        ]
+    },
     "task": [
         {
-            "name": "普通任务",
-            "entry": "MyTask1"
-        },
-        {
-            "name": "选项任务",
-            "entry": "MyTask2",
+            "name": "刷血缘",
+            "entry": "开始刷血缘",
             "option": [
-                "任务选项1"
+                "血缘设置"
             ]
         },
         {
-            "name": "参数任务",
-            "entry": "MyTask3",
-            "option": [
-                "任务选项1"
-            ],
-            "pipeline_override": {}
+            "name": "测试自定义任务",
+            "entry": "识别血缘装备掉落"
         },
         {
-            "name": "带Custom的任务",
-            "entry": "MyTask4"
+            "name": "刷新无尽词条",
+            "entry": "刷新无尽词条",
+            "option": [
+                "无尽设置"
+            ]
+        },
+        {
+            "name": "刷无尽",
+            "entry": "开始刷无尽",
+            "option": [
+                "无尽设置"
+            ]
+        },
+        {
+            "name": "幸运星",
+            "entry": "幸运星"
         }
     ],
     "option": {
-        "任务选项1": {
-            "type": "select",
-            "cases": [
+        "无尽设置": {
+            "type": "input",
+            "label": "无尽设置",
+            "inputs": [
                 {
-                    "name": "文本1",
-                    "pipeline_override": {
-                        "OcrTask": {
-                            "text": "文本1"
-                        }
-                    }
+                    "name": "blocked_affixes",
+                    "label": "无尽屏蔽词条",
+                    "description": "例如：连击,冰,移动,魔法,绝招,闪避,暴击,攻击速度,穿透,减速ß",
+                    "default": "连击,冰,移动,魔法,绝招,闪避,暴击,攻击速度,穿透,减速",
+                    "pipeline_type": "string",
+                    "verify": "^[^,]+(,[^,]+)*$",
+                    "pattern_msg": "请用逗号分隔多个词条名称"
                 },
                 {
-                    "name": "文本2",
-                    "pipeline_override": {
-                        "OcrTask": {
-                            "text": "文本2"
-                        }
+                    "name": "target_count",
+                    "label": "无尽战斗次数",
+                    "description": "无尽战斗次数 0表示刷完体力",
+                    "default": "0",
+                    "pipeline_type": "int",
+                    "verify": "^\\d+$"
+                }
+            ],
+            "pipeline_override": {
+                "刷新无尽词条": {
+                    "custom_action_param": {
+                        "blocked_affixes": "{blocked_affixes}"
+                    }
+                },
+                "无尽_战斗结束_计数": {
+                    "custom_action_param": {
+                        "target_count": "{target_count}"
                     }
                 }
-            ]
+            }
+        },
+        "血缘设置": {
+            "type": "input",
+            "label": "血缘设置",
+            "inputs": [
+                {
+                    "name": "血缘关卡",
+                    "label": "血缘关卡",
+                    "description": "血缘关卡, 输入要刷的关卡名称，例如地狱161",
+                    "default": "地狱161",
+                    "pipeline_type": "string",
+                    "verify": "^.*$"
+                },
+                {
+                    "name": "yolo_expected_labels",
+                    "label": "血缘装备掉落标签",
+                    "description": "0: '金', 1: '远古', 2: '紫'，3: '太古', 用逗号分隔 例如0,1,2,3 默认3",
+                    "default": "3",
+                    "pipeline_type": "string",
+                    "verify": "^.*$"
+                },
+                {
+                    "name": "battle_loop_sleep_sec",
+                    "label": "循环检测血缘装备掉落间隔",
+                    "description": "循环检测血缘装备掉落间隔 默认0.001, 单位秒",
+                    "default": "0.001",
+                    "pipeline_type": "string",
+                    "verify": "^\\d+(\\.\\d+)?$"
+                },
+                {
+                    "name": "battle_ltarget_count",
+                    "label": "血缘战斗次数",
+                    "description": "血缘战斗次数 0表示刷完钥匙",
+                    "default": "0",
+                    "pipeline_type": "int",
+                    "verify": "^\\d+$"
+                }
+            ],
+            "pipeline_override": {
+                "识别血缘装备掉落": {
+                    "custom_action_param": {
+                        "yolo_expected_labels": "{yolo_expected_labels}",
+                        "battle_loop_sleep_sec": "{battle_loop_sleep_sec}"
+                    }
+                },
+                "识别血缘关卡": {
+                    "recognition": "OCR",
+                    "expected": [
+                        "{血缘关卡}"
+                    ]
+                },
+                "血缘_战斗结束_计数": {
+                    "custom_action_param": {
+                        "battle_ltarget_count": "{battle_ltarget_count}"
+                    }
+                }
+            }
         }
     }
 }
