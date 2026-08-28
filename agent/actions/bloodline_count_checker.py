@@ -16,9 +16,10 @@ class BloodlineCountChecker(CustomAction):
             self._bloodline_count = 0          # 新任务，重置计数  
             self._bloodline_last_task_id = task_id  
         
-        # 从 pipeline 的 custom_action_param 读取目标次数  
-        param = json.loads(argv.custom_action_param) if argv.custom_action_param else {}  
-        target = int(param.get("target_count", 0))  
+        # 兼容历史拼写 battle_ltarget_count，优先使用标准字段 target_count。
+        param = json.loads(argv.custom_action_param) if argv.custom_action_param else {}
+        raw_target = param.get("target_count", param.get("battle_ltarget_count", 0))
+        target = int(raw_target)
   
         self._bloodline_count += 1  
         logger.info(f"[战斗结束] 已完成 {self._bloodline_count} 次 / 目标 {'∞' if target == 0 else target} 次")  

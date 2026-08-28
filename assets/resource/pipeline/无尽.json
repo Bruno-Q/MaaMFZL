@@ -144,27 +144,38 @@
     },
     "无尽_战斗失败": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "And",
             "param": {
-                "template": [
-                    "战斗失败.png"
-                ]
+                "all_of": [
+                    {
+                        "recognition": {
+                            "param": {
+                                "template": "战斗失败.png",
+                                "threshold": 0.9
+                            },
+                            "type": "TemplateMatch"
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "param": {
+                                "template": "战斗失败_确定.png",
+                                "threshold": 0.9
+                            },
+                            "type": "TemplateMatch"
+                        }
+                    }
+                ],
+                "box_index": 1
             }
         },
+        "pre_delay": 500,
         "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    1117,
-                    669,
-                    86,
-                    33
-                ]
-            }
+            "type": "Click"
         },
         "post_delay": 500,
         "next": [
-            "战斗失败 任务结束"
+            "无尽_战斗结束_计数"
         ],
         "$__mpe_code": {
             "position": {

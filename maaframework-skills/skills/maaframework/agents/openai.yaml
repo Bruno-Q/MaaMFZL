@@ -1,0 +1,7 @@
+interface:
+  display_name: "MaaFramework"
+  short_description: "Build and debug MaaFramework automation projects"
+  default_prompt: "Use $maaframework to inspect, build, or debug a MaaFramework project."
+
+policy:
+  allow_implicit_invocation: true

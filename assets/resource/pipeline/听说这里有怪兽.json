@@ -1,0 +1,527 @@
+{
+    "$__mpe_config_听说这里有怪兽": {
+        "$__mpe_code": {
+            "prefix": "",
+            "coordinateMode": "absolute-v1",
+            "lastSyncTime": 1783598609735,
+            "isModifiedExternally": false,
+            "filePath": "/Users/bruno/Code/MaaMFZL/assets/resource/pipeline/听说这里有怪兽.json",
+            "savedViewport": {
+                "x": -667,
+                "y": -631,
+                "zoom": 0.6
+            },
+            "filename": "听说这里有怪兽",
+            "version": "v1.7.3"
+        }
+    },
+    "GHOST": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "Ghost.png"
+                ],
+                "green_mask": false
+            }
+        },
+        "timeout": -1,
+        "next": [
+            "点击狂欢时刻"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2252,
+                "y": 1579
+            }
+        }
+    },
+    "GHOST_二次寻找": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "Ghost.png"
+                ],
+                "green_mask": false
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "timeout": -1,
+        "next": [
+            "GHOST确认"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 332,
+                "y": 1587
+            }
+        }
+    },
+    "GHOST二次确认": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    264,
+                    950,
+                    195,
+                    70
+                ]
+            }
+        },
+        "next": [
+            "开启怪"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 972,
+                "y": 1631
+            }
+        }
+    },
+    "GHOST确认": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    233,
+                    806,
+                    254,
+                    85
+                ]
+            }
+        },
+        "next": [
+            "GHOST二次确认"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 652,
+                "y": 1631
+            }
+        }
+    },
+    "主界面": {
+        "next": [
+            "狂欢MAX",
+            "怪MAX"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2572,
+                "y": 784
+            }
+        }
+    },
+    "开启怪": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    643,
+                    234,
+                    70,
+                    64
+                ]
+            }
+        },
+        "next": [
+            "开启怪确认"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1292,
+                "y": 1603
+            }
+        }
+    },
+    "开启怪确认": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    281,
+                    928,
+                    149,
+                    62
+                ]
+            }
+        },
+        "next": [
+            "突袭MAX",
+            "突袭未满"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1612,
+                "y": 815
+            }
+        }
+    },
+    "开启非怪6": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    304,
+                    935,
+                    104,
+                    49
+                ]
+            }
+        },
+        "next": [
+            "主界面"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2252,
+                "y": 175
+            }
+        }
+    },
+    "开启非怪6_分支2": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    304,
+                    935,
+                    104,
+                    49
+                ]
+            }
+        },
+        "next": [
+            "主界面"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2252,
+                "y": 1322
+            }
+        }
+    },
+    "怪6": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    641,
+                    228,
+                    55,
+                    30
+                ],
+                "template": [
+                    "怪6.png"
+                ],
+                "threshold": [
+                    0.8
+                ]
+            }
+        },
+        "next": [
+            "主界面"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2252,
+                "y": 428
+            }
+        }
+    },
+    "怪6分支2": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    641,
+                    228,
+                    55,
+                    30
+                ],
+                "template": [
+                    "怪6.png"
+                ],
+                "threshold": [
+                    0.89
+                ]
+            }
+        },
+        "next": [
+            "GHOST",
+            "未识别GHOST"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1858,
+                "y": 1546
+            }
+        }
+    },
+    "怪MAX": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    637,
+                    225,
+                    82,
+                    85
+                ],
+                "template": [
+                    "绿怪MAX.png"
+                ],
+                "threshold": [
+                    0.9
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "怪6",
+            "非怪6"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1612,
+                "y": 115
+            }
+        }
+    },
+    "怪MAX分支2": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    637,
+                    225,
+                    82,
+                    85
+                ],
+                "template": [
+                    "绿怪MAX.png"
+                ],
+                "threshold": [
+                    0.97
+                ]
+            }
+        },
+        "next": [
+            "怪6分支2",
+            "非怪6_分支2"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1612,
+                "y": 1336
+            }
+        }
+    },
+    "未识别GHOST": {
+        "next": [
+            "怪6分支2"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2257,
+                "y": 1959
+            }
+        }
+    },
+    "点击狂欢时刻": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    12,
+                    240,
+                    51,
+                    48
+                ]
+            }
+        },
+        "next": [
+            "狂欢时刻确认"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2572,
+                "y": 1744
+            }
+        }
+    },
+    "狂欢MAX": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    1,
+                    227,
+                    79,
+                    80
+                ],
+                "template": [
+                    "狂欢时刻MAX.png"
+                ]
+            }
+        },
+        "next": [
+            "怪MAX分支2",
+            "非怪MAX"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2892,
+                "y": 725
+            }
+        }
+    },
+    "狂欢时刻确认": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    267,
+                    857,
+                    183,
+                    70
+                ]
+            }
+        },
+        "next": [
+            "GHOST_二次寻找",
+            "开启怪"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 12,
+                "y": 1631
+            }
+        }
+    },
+    "突袭MAX": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    641,
+                    310,
+                    78,
+                    84
+                ],
+                "template": [
+                    "突袭加速器MAX.png"
+                ],
+                "threshold": [
+                    0.9
+                ]
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "突袭MAX确认"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1932,
+                "y": 726
+            }
+        }
+    },
+    "突袭MAX确认": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    106,
+                    936,
+                    175,
+                    65
+                ]
+            }
+        },
+        "next": [
+            "主界面"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2252,
+                "y": 786
+            }
+        }
+    },
+    "突袭未满": {
+        "next": [
+            "主界面"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1932,
+                "y": 1100
+            }
+        }
+    },
+    "非怪6": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    654,
+                    247,
+                    52,
+                    42
+                ]
+            }
+        },
+        "next": [
+            "开启非怪6"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1932,
+                "y": 175
+            }
+        }
+    },
+    "非怪6_分支2": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    654,
+                    247,
+                    52,
+                    42
+                ]
+            }
+        },
+        "next": [
+            "开启非怪6_分支2"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1932,
+                "y": 1322
+            }
+        }
+    },
+    "非怪MAX": {
+        "next": [
+            "主界面"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2252,
+                "y": 12
+            }
+        }
+    }
+}

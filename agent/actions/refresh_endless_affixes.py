@@ -11,6 +11,9 @@ from utils import logger
 @AgentServer.custom_action("refresh_endless_affixes")
 class RefreshEndlessAffixesAction(CustomAction):
     DEFAULT_OCR_ROI = [775, 358, 276, 114]
+    BATTLE_FAILED_CONFIRM_TEMPLATE = "战斗失败_确定.png"
+    BATTLE_FAILED_CONFIRM_THRESHOLD = 0.8
+    BATTLE_FAILED_RECOVERY_DELAY_SEC = 0.8
 
     @staticmethod
     def _safe_screencap(context: Context):
@@ -86,6 +89,34 @@ class RefreshEndlessAffixesAction(CustomAction):
         return True
 
     @staticmethod
+    def _click_battle_failed_confirm(
+        context: Context,
+        image: np.ndarray,
+        template: str,
+        threshold: float,
+    ) -> bool:
+        reco_detail = context.run_recognition(
+            "BattleFailedConfirmTemplateMatch",
+            image,
+            pipeline_override={
+                "BattleFailedConfirmTemplateMatch": {
+                    "recognition": "TemplateMatch",
+                    "template": template,
+                    "threshold": threshold,
+                }
+            },
+        )
+        if not (reco_detail and reco_detail.hit and reco_detail.box):
+            return False
+
+        x, y, w, h = reco_detail.box
+        click_x = x + w // 2
+        click_y = y + h // 2
+        logger.info(f"刷新词条前检测到战斗失败弹窗，点击确定: ({click_x}, {click_y})")
+        context.tasker.controller.post_click(click_x, click_y).wait()
+        return True
+
+    @staticmethod
     def _parse_config(custom_action_param: str) -> dict[str, Any]:
         if not custom_action_param:
             return {}
@@ -104,7 +135,7 @@ class RefreshEndlessAffixesAction(CustomAction):
         context: Context,
         argv: CustomAction.RunArg,
     ) -> bool:
-        params = json.loads(argv.custom_action_param or "{}") 
+        params = self._parse_config(argv.custom_action_param or "")
 
         blocked_affixes_str = params.get("blocked_affixes", "")  
         blocked_affixes = [f.strip() for f in blocked_affixes_str.split(",") if f.strip()]  
@@ -115,6 +146,22 @@ class RefreshEndlessAffixesAction(CustomAction):
         refresh_interval_sec = 0.4
         max_refresh_count = params.get("count", 10)
         max_empty_ocr_retry = 3
+
+        image = self._safe_screencap(context)
+        if image is None:
+            if not blocked_affixes:
+                logger.info("截图失败，但 blocked_affixes 为空，跳过刷新词条")
+                return True
+            logger.info("截图失败，停止刷新词条")
+            return False
+
+        if self._click_battle_failed_confirm(
+            context=context,
+            image=image,
+            template=self.BATTLE_FAILED_CONFIRM_TEMPLATE,
+            threshold=self.BATTLE_FAILED_CONFIRM_THRESHOLD,
+        ):
+            time.sleep(self.BATTLE_FAILED_RECOVERY_DELAY_SEC)
 
         if not blocked_affixes:
             logger.info("blocked_affixes 为空，无需刷新词条")
@@ -127,6 +174,16 @@ class RefreshEndlessAffixesAction(CustomAction):
             if image is None:
                 logger.info("截图失败，停止刷新词条")
                 return False
+
+            if self._click_battle_failed_confirm(
+                context=context,
+                image=image,
+                template=self.BATTLE_FAILED_CONFIRM_TEMPLATE,
+                threshold=self.BATTLE_FAILED_CONFIRM_THRESHOLD,
+            ):
+                empty_ocr_count = 0
+                time.sleep(self.BATTLE_FAILED_RECOVERY_DELAY_SEC)
+                continue
 
             recognized_texts = self._extract_recognized_texts(context, image, ocr_roi)
             logger.info(f"当前识别词条: {recognized_texts}")

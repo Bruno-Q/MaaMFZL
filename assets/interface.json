@@ -42,8 +42,8 @@
             ]
         },
         {
-            "name": "测试自定义任务",
-            "entry": "识别血缘装备掉落"
+            "name": "听说这里有怪兽",
+            "entry": "主界面"
         },
         {
             "name": "刷新无尽词条",
@@ -72,8 +72,8 @@
                 {
                     "name": "blocked_affixes",
                     "label": "无尽屏蔽词条",
-                    "description": "例如：连击,冰,移动,魔法,绝招,闪避,暴击,攻击速度,穿透,减速ß",
-                    "default": "连击,冰,移动,魔法,绝招,闪避,暴击,攻击速度,穿透,减速",
+                    "description": "例如：连击,冰,移动,物理,绝招,闪避,暴击,攻击速度,穿透,减速,少受",
+                    "default": "连击,冰,护盾,物理,闪避,暴击,攻击速度,穿透,减速,少受,移动",
                     "pipeline_type": "string",
                     "verify": "^[^,]+(,[^,]+)*$",
                     "pattern_msg": "请用逗号分隔多个词条名称"
@@ -107,8 +107,8 @@
                 {
                     "name": "血缘关卡",
                     "label": "血缘关卡",
-                    "description": "血缘关卡, 输入要刷的关卡名称，例如地狱161",
-                    "default": "地狱161",
+                    "description": "血缘关卡, 输入要刷的关卡名称，例如地狱162",
+                    "default": "地狱162",
                     "pipeline_type": "string",
                     "verify": "^.*$"
                 },
@@ -152,7 +152,7 @@
                 },
                 "血缘_战斗结束_计数": {
                     "custom_action_param": {
-                        "battle_ltarget_count": "{battle_ltarget_count}"
+                        "target_count": "{battle_ltarget_count}"
                     }
                 }
             }

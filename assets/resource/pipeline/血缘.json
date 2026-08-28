@@ -233,7 +233,10 @@
                 ]
             }
         },
-        "timeout": -1,
+        "timeout": 90000,
+        "on_error": [
+            "点击暂停"
+        ],
         "next": [
             "血缘选择"
         ],
@@ -259,7 +262,10 @@
         "action": {
             "type": "Click"
         },
-        "timeout": -1,
+        "timeout": 30000,
+        "on_error": [
+            "准备刷血缘"
+        ],
         "next": [
             "血缘密钥不足",
             "战斗_等待"
@@ -272,6 +278,10 @@
         }
     },
     "战斗_等待": {
+        "timeout": 90000,
+        "on_error": [
+            "准备刷血缘"
+        ],
         "next": [
             "血缘密钥不足",
             "成功进入战斗"
@@ -312,19 +322,21 @@
         },
         "pre_delay": 500,
         "action": {
-            "type": "Click",
+            "type": "Custom",
             "param": {
-                "target": [
-                    1117,
-                    669,
-                    86,
-                    33
-                ]
+                "custom_action": "bloodline_handle_battle_failed",
+                "custom_action_param": {
+                    "max_wait_sec": 18,
+                    "loop_sleep_sec": 0.2,
+                    "settle_sec": 0.6,
+                    "gone_required_hits": 2,
+                    "soft_success_after_clicks": 6
+                }
             }
         },
-        "post_delay": 500,
+        "post_delay": 0,
         "next": [
-            "准备刷血缘"
+            "刷完切到无尽深渊"
         ],
         "$__mpe_code": {
             "position": {
@@ -334,7 +346,10 @@
         }
     },
     "掉落目标装备": {
-        "timeout": -1,
+        "timeout": 240000,
+        "on_error": [
+            "点击暂停"
+        ],
         "next": [
             "血缘_战斗结束",
             "战斗失败"
@@ -455,6 +470,10 @@
                 ]
             }
         },
+        "timeout": 3000,
+        "on_error": [
+            "血缘战斗兜底"
+        ],
         "action": {
             "type": "Click"
         },
@@ -532,7 +551,10 @@
         }
     },
     "继续战斗": {
-        "timeout": -1,
+        "timeout": 240000,
+        "on_error": [
+            "点击暂停"
+        ],
         "next": [
             "最终boss",
             "等待选择",
@@ -601,13 +623,13 @@
             "param": {
                 "custom_action": "bloodline_count_checker",
                 "custom_action_param": {
-                    "battle_ltarget_count": "0"
+                    "target_count": 0
                 }
             }
         },
         "post_delay": 0,
         "next": [
-            "准备刷血缘"
+            "刷完切到无尽深渊"
         ],
         "$__mpe_code": {
             "position": {
@@ -616,22 +638,45 @@
             }
         }
     },
-    "血缘tab": {
-        "recognition": {
-            "type": "TemplateMatch",
+    "刷完切到无尽深渊": {
+        "action": {
+            "type": "Custom",
             "param": {
-                "template": [
-                    "血缘.png"
-                ],
-                "threshold": [
-                    0.9
-                ]
+                "custom_action": "bloodline_switch_to_endless_tab",
+                "custom_action_param": {
+                    "max_wait_sec": 20,
+                    "loop_sleep_sec": 0.2,
+                    "post_click_delay_sec": 2
+                }
             }
         },
+        "on_error": [
+            "血缘战斗兜底"
+        ],
+        "post_delay": 0,
+        "next": [
+            "血缘tab"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2892,
+                "y": 1015
+            }
+        }
+    },
+    "血缘tab": {
         "action": {
-            "type": "Click"
+            "type": "Custom",
+            "param": {
+                "custom_action": "bloodline_switch_to_bloodline_tab",
+                "custom_action_param": {
+                    "max_wait_sec": 10,
+                    "loop_sleep_sec": 0.2,
+                    "post_click_delay_sec": 1
+                }
+            }
         },
-        "post_delay": 500,
+        "post_delay": 0,
         "next": [
             "准备刷血缘"
         ],
@@ -783,6 +828,10 @@
                 ]
             }
         },
+        "timeout": 3000,
+        "on_error": [
+            "血缘战斗兜底"
+        ],
         "action": {
             "type": "Click"
         },
@@ -809,6 +858,10 @@
                 ]
             }
         },
+        "timeout": 3000,
+        "on_error": [
+            "血缘战斗兜底"
+        ],
         "action": {
             "type": "Click",
             "param": {
@@ -831,20 +884,38 @@
             }
         }
     },
+    "血缘战斗兜底": {
+        "next": [
+            "血缘_战斗结束",
+            "战斗失败",
+            "血缘选择",
+            "非奶牛关_退出当前战斗"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 6412,
+                "y": 998
+            }
+        }
+    },
     "非奶牛关": {
         "action": {
-            "type": "Click",
+            "type": "Custom",
             "param": {
-                "target": [
-                    417,
-                    194,
-                    162,
-                    60
-                ]
+                "custom_action": "bloodline_exit_current_battle",
+                "custom_action_param": {
+                    "max_wait_sec": 30,
+                    "loop_sleep_sec": 0.1,
+                    "select_before_exit": true,
+                    "selection_settle_sec": 1
+                }
             }
         },
         "next": [
-            "点击暂停"
+            "退出战斗"
+        ],
+        "on_error": [
+            "血缘战斗兜底"
         ],
         "$__mpe_code": {
             "position": {
@@ -872,6 +943,34 @@
             "position": {
                 "x": 332,
                 "y": 1513
+            }
+        }
+    },
+    "非奶牛关_退出当前战斗": {
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "bloodline_exit_current_battle",
+                "custom_action_param": {
+                    "max_wait_sec": 30,
+                    "loop_sleep_sec": 0.1,
+                    "select_before_exit": true,
+                    "selection_settle_sec": 1
+                }
+            }
+        },
+        "post_delay": 0,
+        "next": [
+            "退出战斗"
+        ],
+        "on_error": [
+            "血缘战斗兜底"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 5452,
+                "y": 998
             }
         }
     }
