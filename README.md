@@ -1,117 +1,115 @@
 <!-- markdownlint-disable MD033 MD041 -->
 <p align="center">
-  <img alt="LOGO" src="https://cdn.jsdelivr.net/gh/MaaAssistantArknights/design@main/logo/maa-logo_512x512.png" width="256" height="256" />
+  <img alt="Maa logo" src="https://cdn.jsdelivr.net/gh/MaaAssistantArknights/design@main/logo/maa-logo_512x512.png" width="192" height="192" />
 </p>
 
 <div align="center">
 
-# MaaPracticeBoilerplate
+# MaaMFZL
+
+魔法之路小助手 —— 基于 [MaaFramework](https://github.com/MaaXYZ/MaaFramework) 的自动化工具。
 
 </div>
 
-本仓库为 [MaaFramework](https://github.com/MaaXYZ/MaaFramework) 所提供的项目模板，开发者可基于此模板直接创建自己的 MaaXXX 项目。
+## 功能
 
-> **MaaFramework** 是基于图像识别技术、运用 [MAA](https://github.com/MaaAssistantArknights/MaaAssistantArknights) 开发经验去芜存菁、完全重写的新一代自动化黑盒测试框架。
-> 低代码的同时仍拥有高扩展性，旨在打造一款丰富、领先、且实用的开源库，助力开发者轻松编写出更好的黑盒测试程序，并推广普及。
+- **刷血缘**：自动选择关卡并进行战斗，可按装备稀有度和战斗次数筛选。
+- **刷无尽**：按屏蔽词条自动刷新无尽词条，战斗失败后会尝试恢复并继续刷新。
+- **刷幸运星**：自动进入活动并循环领取幸运星。
+- **统一入口**：客户端任务列表还保留了“听说这里有怪兽”入口，实际任务以 `assets/interface.json` 中的配置为准。
 
-## 即刻开始
+## 使用前准备
 
-- [📄 快速开始](https://github.com/MaaXYZ/MaaFramework/blob/main/docs/zh_cn/1.1-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.md)
-- [🎞️ 视频教程](https://www.bilibili.com/video/BV1yr421E7MW)
+获取代码时建议同时拉取公共资源子模块：
 
-## 如何开发
+```bash
+git clone --recurse-submodules https://github.com/Bruno-Q/MaaMFZL.git
+cd MaaMFZL
+```
 
-0. 使用右上角 `Use this template` - `Create a new repository` 来基于本模板创建您自己的项目。
+1. 准备 Python 3.8 或更高版本，并确保已安装并配置好 ADB。
+2. 使用支持 MaaFramework 的客户端（例如 MFAAvalonia 或 MaaPiCli），并准备一个已连接的 Android 设备或模拟器。
+3. 下载与当前版本匹配的 [MaaFramework Release](https://github.com/MaaXYZ/MaaFramework/releases)，解压到项目根目录的 `deps` 文件夹。解压后至少应包含：
 
-1. 克隆本项目（地址请修改为您基于本模板创建的新项目地址）。
+    ```text
+    deps/
+    ├── bin/
+    └── share/MaaAgentBinary/
+    ```
+
+4. 初始化公共资源子模块并配置 OCR：
 
     ```bash
-    git clone https://github.com/MaaXYZ/MaaPracticeBoilerplate.git
+    git submodule update --init --recursive
+    python3 -m venv .venv       # Windows：py -3 -m venv .venv
+    source .venv/bin/activate       # Windows：.venv\Scripts\activate
+    python -m pip install --upgrade pip
+    python -m pip install -r tools/requirements.txt
+    python -m pip install "MaaFw>=5.9.0" numpy opencv-python
+    python tools/configure.py
     ```
 
-2. 下载 MaaFramework 的 [Release 包](https://github.com/MaaXYZ/MaaFramework/releases)，解压到 `deps` 文件夹中。
+    `tools/configure.py` 会将 OCR 模型复制到 `assets/resource/model/ocr/`。该目录已被 Git 忽略，不需要提交。
 
-3. 下载 OCR（文字识别）资源文件 [ppocr_v5.zip](https://download.maafw.xyz/MaaCommonAssets/OCR/ppocr_v5/ppocr_v5-zh_cn.zip) 解压到 `assets/resource/model/ocr/` 目录下，确保路径如下：
+## 配置与运行
 
-    ```tree
-    assets/resource/model/ocr/
-    ├── det.onnx
-    ├── keys.txt
-    └── rec.onnx
-    ```
+启动前，请打开 [`assets/interface.json`](./assets/interface.json)，将 `agent.child_exec` 和 `agent.child_args` 修改为本机的 Python 与 `agent/main.py` 路径。示例：
 
-    _请注意，您不需要将 OCR 资源文件上传到您的代码仓库中。`.gitignore` 已经忽略了 `assets/resource/model/ocr/` 目录，且 GitHub workflow 在发布版本时会自动配置这些资源文件。_
+```jsonc
+"agent": {
+    "child_exec": "/项目路径/.venv/bin/python",
+    "child_args": ["/项目路径/agent/main.py"]
+}
+```
 
-4. 进行开发工作，按您的业务需求修改 `assets` 中的资源文件，请参考 [MaaFramework 相关文档](https://github.com/MaaXYZ/MaaFramework/blob/main/docs/zh_cn/1.1-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.md#%E8%B5%84%E6%BA%90%E5%87%86%E5%A4%87)。
+Windows 请使用本机路径格式，并按 JSON 要求转义反斜杠。然后在 MFAAvalonia 或 MaaPiCli 中加载项目根目录（或打包后的 `install` 目录），选择对应任务运行。
 
-5. 完成开发后，上传您的代码并发布版本。
+### 任务选项
 
-    ```bash
-    # 配置 git 信息（仅第一次需要，后续不用再配置）
-    git config user.name "您的 GitHub 昵称"
-    git config user.email "您的 GitHub 邮箱"
-    
-    # 提交修改
-    git add .
-    git commit -m "XX 新功能"
-    git push origin HEAD -u
-    ```
+| 任务 | 选项 | 说明 |
+| --- | --- | --- |
+| 刷血缘 | 血缘关卡 | 例如 `地狱162` |
+| 刷血缘 | 血缘装备掉落标签 | `0` 金、`1` 远古、`2` 紫、`3` 太古，可用逗号分隔；默认 `3` |
+| 刷血缘 | 血缘战斗次数 | `0` 表示一直刷到钥匙不足 |
+| 刷无尽 | 无尽屏蔽词条 | 用逗号分隔需要避开的词条 |
+| 刷无尽 | 无尽战斗次数 | `0` 表示一直刷到体力不足 |
+| 刷幸运星 | 无 | 进入活动后自动循环 |
+| 听说这里有怪兽 | 主界面 | 入口任务，具体行为以当前资源配置为准 |
 
-6. 发布您的版本
+## 开发与检查
 
-    需要**先**修改仓库设置 `Settings` - `Actions` - `General` - `Read and write permissions` - `Save`
+资源文件位于 `assets/resource/`，自定义识别和动作位于 `agent/`。修改资源后可以运行以下检查：
 
-    ```bash
-    # CI 检测到 tag 会自动进行发版
-    git tag v1.0.0
-    git push origin v1.0.0
-    ```
+```bash
+python check_resource.py assets/resource/
+python tools/validate_schema.py \
+  --schema-dir deps/tools \
+  --resource-dirs assets/resource \
+  --exclude-dirs assets/resource/announcement \
+  --interface-files assets/interface.json
+```
 
-7. 更多操作，请参考 [个性化配置](./docs/zh_cn/个性化配置.md)（可选）
+运行日志和识别调试图片写入 `debug/`。需要排查 YOLO 识别时，可在相关动作中启用调试截图；请注意 `debug/` 不应提交到仓库。
 
-## 生态共建
+## 打包发布
 
-MAA 正计划建设为一类项目，而非舟的单一软件。
+GitHub Actions 会在推送 `v*` 标签时生成各平台安装包。也可以在本地执行：
 
-若您的项目依赖于 MaaFramework，我们欢迎您将它命名为 MaaXXX, MXA, MAX 等等。当然，这是许可而不是限制，您也可以自由选择其他与 MAA 无关的名字，完全取决于您自己的想法！
+```bash
+python tools/install.py v1.0.0 macos aarch64
+```
 
-同时，我们也非常欢迎您提出 PR，在 [社区项目列表](https://github.com/MaaXYZ/MaaFramework#%E7%A4%BE%E5%8C%BA%E9%A1%B9%E7%9B%AE) 中添加上您的项目！
+其中平台参数支持 `win`、`macos`、`linux`、`android`，架构参数支持 `x86_64` 和 `aarch64`（Android 使用对应的 MaaFramework 资源）。生成结果位于 `install/`。
 
-## FAQ
+## 问题反馈
 
-### 0. 我是第一次使用 git，这是什么？视频演示中那个黑框框命令行哪来的？
+提交 Issue 时请附上：
 
-黑框框是 git bash，几乎任何现代软件的开发都离不开 git，建议先参考 [菜鸟教程](https://www.runoob.com/git/git-install-setup.html) 或搜索一些视频，学习完 git 后再来进行后续开发工作。
+- MaaMFZL 版本、操作系统、模拟器及分辨率；
+- `debug/` 中与问题时间对应的日志；
+- 能复现问题的截图或录屏；
+- 使用的任务及任务选项。
 
-### 1. 我是第一次使用 Python，在命令行输入 `python ./configure.py` 或 `python -m pip install MaaFW` 之后没有反应？没有报错，也没有提示成功，什么都没有
+## 许可证
 
-Win10 或者 Win11 系统自带了一份 "Python"，但它其实只是一个安装器，是没法用的。  
-你需要做的是关闭它或者删除它的环境变量，然后自己去 Python 官网下载并安装一份 Python。  
-[参考方法](https://www.bilibili.com/read/cv24692025/)
-
-### 2. 使用 MaaDebugger 或 MaaPicli 时弹窗报错，应用程序错误：应用程序无法正常启动
-
-![缺少运行库](https://github.com/user-attachments/assets/942df84b-f47d-4bb5-98b5-ab5d44bc7c2a)
-
-一般是电脑缺少某些运行库，请安装一下 [vc_redist](https://aka.ms/vs/17/release/vc_redist.x64.exe) 。
-
-### 3. 我在这个仓库里提了 Issue 很久没人回复
-
-这里是《项目模板》仓库，它仅仅是一个模板，一般很少会修改，开发者也较少关注。  
-在此仓库请仅提问模板相关问题，其他问题最好前往对应的仓库提出，如果有 log，最好也带上它（`debug/maa.log` 文件）
-
-- MaaFW 本身及 MaaPiCli 的问题：[MaaFramework/issues](https://github.com/MaaXYZ/MaaFramework/issues)
-- MaaDebugger 的问题：[MaaDebugger/issues](https://github.com/MaaXYZ/MaaDebugger/issues)
-- 不知道算是哪里的、其他疑问等：[讨论区](https://github.com/MaaXYZ/MaaFramework/discussions)
-
-### 4. OCR 文字识别一直没有识别结果，报错 "Failed to load det or rec", "ocrer_ is null"
-
-**请仔细阅读文档**，你无视了前面步骤的报错。我不想解释了，请再把本文档仔细阅读一遍！
-
-## 鸣谢
-
-本项目由 **[MaaFramework](https://github.com/MaaXYZ/MaaFramework)** 强力驱动！
-
-感谢以下开发者对本项目作出的贡献（下面链接改成你自己的项目地址）:
-
-[![Contributors](https://contrib.rocks/image?repo=MaaXYZ/MaaFramework&max=1000)](https://github.com/MaaXYZ/MaaFramework/graphs/contributors)
+本项目使用 [MIT License](./LICENSE)。
