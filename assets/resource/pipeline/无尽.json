@@ -175,11 +175,33 @@
         },
         "post_delay": 500,
         "next": [
-            "无尽_战斗结束_计数"
+            "无尽_战斗失败后刷新词条"
         ],
         "$__mpe_code": {
             "position": {
                 "x": 1932,
+                "y": 643
+            }
+        }
+    },
+    "无尽_战斗失败后刷新词条": {
+        "pre_delay": 0,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "refresh_endless_affixes",
+                "custom_action_param": {
+                    "force_refresh_once": true
+                }
+            }
+        },
+        "post_delay": 0,
+        "next": [
+            "无尽_战斗结束_计数"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2264,
                 "y": 643
             }
         }

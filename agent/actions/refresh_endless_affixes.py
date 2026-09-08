@@ -117,8 +117,13 @@ class RefreshEndlessAffixesAction(CustomAction):
         return True
 
     @staticmethod
-    def _parse_config(custom_action_param: str) -> dict[str, Any]:
+    def _parse_config(custom_action_param: Any) -> dict[str, Any]:
         if not custom_action_param:
+            return {}
+        if isinstance(custom_action_param, dict):
+            return custom_action_param
+        if not isinstance(custom_action_param, str):
+            logger.info("custom_action_param 类型不是字符串或对象，使用默认配置")
             return {}
         try:
             parsed = json.loads(custom_action_param)
@@ -129,6 +134,16 @@ class RefreshEndlessAffixesAction(CustomAction):
             return parsed
         logger.info("custom_action_param 解析结果不是对象，使用默认配置")
         return {}
+
+    @staticmethod
+    def _bool_param(value: Any, default: bool = False) -> bool:
+        if isinstance(value, bool):
+            return value
+        if isinstance(value, str):
+            return value.strip().lower() in {"1", "true", "yes", "y", "on"}
+        if value is None:
+            return default
+        return bool(value)
 
     def run(
         self,
@@ -146,6 +161,7 @@ class RefreshEndlessAffixesAction(CustomAction):
         refresh_interval_sec = 0.4
         max_refresh_count = params.get("count", 10)
         max_empty_ocr_retry = 3
+        force_refresh_once = self._bool_param(params.get("force_refresh_once"), False)
 
         image = self._safe_screencap(context)
         if image is None:
@@ -162,6 +178,25 @@ class RefreshEndlessAffixesAction(CustomAction):
             threshold=self.BATTLE_FAILED_CONFIRM_THRESHOLD,
         ):
             time.sleep(self.BATTLE_FAILED_RECOVERY_DELAY_SEC)
+
+        if force_refresh_once:
+            image = self._safe_screencap(context)
+            if image is None:
+                logger.info("战斗失败后刷新词条前截图失败")
+                return False
+
+            if not self._click_refresh_by_template(
+                context=context,
+                image=image,
+                template=refresh_template,
+                threshold=refresh_threshold,
+            ):
+                return False
+
+            logger.info("战斗失败后已强制刷新词条一次")
+            if refresh_interval_sec > 0:
+                time.sleep(refresh_interval_sec)
+            return True
 
         if not blocked_affixes:
             logger.info("blocked_affixes 为空，无需刷新词条")
